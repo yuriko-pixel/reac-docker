@@ -1,19 +1,48 @@
+.envファイルから読み込む
+docker run --env-file ./.env -v /Users/test/Desktop/docker-react/src:/app/src:ro -d -p 3000:3000 --name react-app react-image
 
+Dockerfileに書いたENVをコマンドから上書きできる
+docker run -e REACT_APP_NAME=test -v /Users/test/Desktop/docker-react/src:/app/src:ro -d -p 3000:3000 --name react-app react-image
 
+localからは書き込めるが、コンテナ側からは書き込めないRead onlyモードにする
+docker run -v /Users/test/Desktop/docker-react/src:/app/src:ro -d -p 3000:3000 --name react-app react-image
+
+dockerボリュームを使うことで、ローカルの変更がdockerにも反映される(Hot Reloadされる)
+docker run -v c:/usr/react-app/src:/app/src -d -p 3000:3000 --name react-app react-image
+
+もしくはwindowsの場合は以下が必要かも
+docker run -e CHOKIDAR_USEPOLLING=true -v c:/usr/react-app/src:/app/src -d -p 3000:3000 --name react-app react-image
+
+Windows powershell
+docker run -v ${pwd}/src:/app/src -d -p 3000:3000 --name react-app react-image
+
+react-appコンテナの中に入る
 docker exec -it react-app bash
 
+react-appという名前のコンテナをreact-imageというイメージから立ち上げる
+(dockerの3000ポートにきたものをローカルPCの3000ポートにフォワード？する)
 docker run -d -p 3000:3000 --name react-app react-image
 
+react-imageというイメージを削除する
+docker rmi react-image
+
+今あるイメージを表示する
+docker images
+
+今動いているdockerのコンテナを確認する
 docker ps
 
+react-appというコンテナを削除する
 docker rm react-app -f
 
-docker-react andouyuriko$ docker
-
+react-appという名前のコンテナをreact-imageというイメージから立ち上げる
 docker run -d --name react-app react-image
 
+react-imageというタグ名で現在のdirをビルドする
 docker build -t react-image .
 
+現在のdirをビルドする
 docker build .
 
+dockerのnodeイメージを取ってくる
 docker pull node
