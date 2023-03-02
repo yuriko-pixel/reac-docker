@@ -1,3 +1,9 @@
+### 参考にしたチュートリアル
+https://youtu.be/3xDAU5cvi5E
+
+Dockerfileに複数FROMがある場合など、マルチステージになっている場合（よくわからん）
+docker build --target build -f Dockerfile.prod -t multi-stage-example .
+
 開発用と本番用のコンテナを同時にそれぞれのymlファイルを使って立ち上げる
 またDockerfileなどを変えた場合も--buildオプションをつけること
 docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d --build
