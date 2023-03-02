@@ -1,3 +1,13 @@
+開発用と本番用のコンテナを同時にそれぞれのymlファイルを使って立ち上げる
+またDockerfileなどを変えた場合も--buildオプションをつけること
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d --build
+
+prod用のDockerfileでビルドする
+docker build -f Dockerfile.prod -t docker-image-build .
+
+ローカルでは別のDockerfileを使う場合は指定が必要
+docker build -f Dockerfile.dev .
+
 .envファイルから読み込む
 docker run --env-file ./.env -v /Users/test/Desktop/docker-react/src:/app/src:ro -d -p 3000:3000 --name react-app react-image
 
@@ -46,3 +56,12 @@ docker build .
 
 dockerのnodeイメージを取ってくる
 docker pull node
+
+## よくわかっていないこと
+1. containerとimageの違い
+2. なぜdocker-compose.ymlがいるのか
+3. Volumeって何
+4. docker-composeって何
+5. コンテナがいっぱいある状態ってそもそもどういうこと
+6. なぜReactだとデフォルトでホットリロードが効かないのか
+7. Dockerfileにかく順番
